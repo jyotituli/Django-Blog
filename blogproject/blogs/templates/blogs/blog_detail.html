@@ -1,0 +1,30 @@
+{% extends 'blogs/base.html' %}
+{% load static %}
+{% block content %}
+ <div class="col-md-8">
+
+       <a href="{% url 'blog-home' %}">Back to Home</a>
+        <div class="card mb-4 mt-4">
+          <div class="card-body">
+            <h2 class="card-title">{{object.title}}</h2>
+              <img class="bd-placeholder-img card-img-top" height=400 width=50 src="{% if object.image %}{{ object.image.url }}{% else %}
+{% static 'img/noimg.jpg' %}{% endif %}"/>
+
+            <p class="card-text">{{object.text|linebreaks}}</p>
+          </div>
+          <div class="card-footer text-muted">
+            Posted on {{object.date}} by
+            <span class= "text-info mr-2">{{object.author}}</span>
+              {% if Username == object.author%}
+              <a href="{% url 'edit-blog' object.pk %}" class="btn btn-primary btn-sm">Edit</a>
+              <a href="{% url 'delete-blog' object.pk %}" class="btn btn-primary btn-sm">Delete</a>
+              {% endif %}
+
+
+          </div>
+        </div>
+
+
+
+      </div>
+{% endblock %}

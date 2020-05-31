@@ -1,0 +1,40 @@
+{% extends 'blogs/base.html' %}
+{% block content %}
+
+ <div class="col-md-8">
+        <div class="card mb-4 mt-4">
+          <div class="card-header">
+              {% with url_name=request.resolver_match.url_name %}
+              {% if url_name == 'create-blog' %}
+              Add a new Blog
+              {% elif url_name == 'edit-blog' %}
+              Edit Blog
+              {% else %}
+              Delete Blog
+              {% endif %}
+              {% endwith %}
+          </div>
+          <div class="card-body">
+              <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{form.as_p}}
+                  {% with url_name=request.resolver_match.url_name %}
+
+              {% if url_name == 'create-blog' %}
+              <button type="submit" class="btn btn-primary">Post Blog</button>
+              {% elif url_name == 'edit-blog' %}
+              <button type="submit" class="btn btn-primary">Edit Blog</button>
+              {% else %}
+
+              <button type="submit" class="btn btn-primary">Delete Blog</button>
+              {% endif %}
+              {% endwith %}
+
+              </form>
+             </div>
+        </div>
+
+
+
+      </div>
+{% endblock %}
